@@ -11,4 +11,18 @@
                 <input type="submit" value="Post">
 
         </form>
+
+        <div id="posts-list-container">
+                <ul>
+                        <% for (post of posts) { %>
+                                <li> 
+                                      <%=  post.content %>
+                                      <%=  post.user %>
+                                </li>
+                        <% } %>
+                </ul>
+
+        </div>
+
+
 </section>
