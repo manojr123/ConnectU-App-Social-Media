@@ -50,6 +50,7 @@ passport.checkAuthentication = function (req,res,next) {
 
     // if the user is signed in, then pass on the req to the next function (controller's action)
     if (req.isAuthenticated())  {
+        console.log('passport.checkAuthentication True');
         return next();
     }
 
