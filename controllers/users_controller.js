@@ -3,11 +3,28 @@ const User = require('../models/user');
 
 module.exports.profile = function(req,res) {
     //return res.end('<h1> User Profile </h1> ');
-    return res.render('user-profile', {
-        title : "User Profile"
-    });
+    console.log("User Controller : Profile");
+    User.findById(req.params.id, function(err, user) {
+        return res.render('user-profile', {
+            title : "User Profile",
+            profile_user : user
+        });
+    
+    })
+
 
 }
+module.exports.update = function(req,res) {
+    if ( req.user.id == req.params.id) {
+        User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+            return res.redirect('back');
+        })
+    } else {
+        return res.status(401).send('Unauthorized');
+    }
+}
+
+
 module.exports.login = function(req,res) {
     //return res.end('<h1> Login </h1> ');
     return res.render('user-profile', {
