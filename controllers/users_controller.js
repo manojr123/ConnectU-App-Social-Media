@@ -14,14 +14,49 @@ module.exports.profile = function(req,res) {
 
 
 }
-module.exports.update = function(req,res) {
+module.exports.update = async function(req,res) {
+    // if ( req.user.id == req.params.id) {
+    //     User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+    //         return res.redirect('back');
+    //     })
+    // } else {
+    //     return res.status(401).send('Unauthorized');
+    // }
+
+    // Converting to async await
     if ( req.user.id == req.params.id) {
-        User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+        try {
+            let user = User.findByIdAndUpdate(req.params.id);
+            User.uploadedAvatar(req,res, function(err){
+                if ( err) {
+                    console.log('*********Multer Error: ', err);
+                    user.name = req.body.name;
+                    user.email = req.body.email;
+
+                    if( req.file) {
+                        // This is saving the path of the uploaded file into the avatar field in the user
+                        user.avatar = User.avatarPath + '/' + req.file.filename;
+                    }
+                    user.save();
+                    return res.redirect('back');
+                }
+                console.log(req.file);
+            })
+
+        } catch(err) {
+            console.log("Error", err);
             return res.redirect('back');
-        })
+        }
+
+
+
     } else {
         return res.status(401).send('Unauthorized');
     }
+
+
+
+
 }
 
 
@@ -88,6 +123,8 @@ module.exports.create = function(req,res) {
 // Sign In and create a session for the User
 module.exports.createSession = function(req,res) {
 
+    req.flash ('success','Logged in Successfully');
+
     return res.redirect('/');
     
 }
@@ -97,6 +134,7 @@ module.exports.destroySession = function(req,res) {
     // Passport gives logout to request
     req.logout(function(err) {
             if (err) { return next(err); }
+            req.flash ('success','You have logged out!');
             return res.redirect('/');
     });
     //return res.redirect('/');
