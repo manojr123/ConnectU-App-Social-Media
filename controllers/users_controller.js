@@ -2,18 +2,38 @@
 const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
+const Friend = require('../models/friend');
 
 
-module.exports.profile = function(req,res) {
+module.exports.profile = async function(req,res) {
     //return res.end('<h1> User Profile </h1> ');
+    let already_friends = false;
+
+    const friend_data = await Friend.find({$or :[{from_user: req.user.id,
+        to_user : req.params.id },
+        {from_user : req.params.id,
+            to_user:req.user.id }] 
+    });
+
+    if (friend_data.length != 0) {
+        already_friends = true;
+    }
+
     console.log("User Controller : Profile");
-    User.findById(req.params.id, function(err, user) {
-        return res.render('user-profile', {
-            title : "User Profile",
-            profile_user : user
-        });
+    console.log("User Controller : friend_data", friend_data);
+    console.log("User Controller : already_friends", already_friends);
+
+    const user = await User.findById(req.params.id);
     
-    })
+    
+    
+    return res.render('user-profile', {
+           title : "User Profile",
+           profile_user : user,
+           already_friends : already_friends
+    });
+    
+    
 
 
 }

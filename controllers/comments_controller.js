@@ -14,35 +14,42 @@ console.log('inside comments controller:create')
             let comment = await Comment.create({
                 content: req.body.content,
                 post: req.body.post,
-                user: req.user._id
+                user: req.user._id,
+                username : req.user.name
             });
-
+            console.log('CC : locals.user.name',req.user.name);
             post.comments.push(comment);
+            // console.log('CC: comment', comment);
+            // console.log('CC : post.comments', post.comments);
             post.save();
             // Similar for comments to fetch the user's id
             comment =await comment.populate('user', 'name email');
+            console.log('CC : post.comments', post.comments);
 
             // send email
             //commentsMailer.newComment(comment);
-            let job =  queue.create('emails', comment).save(function(err) {
-                if ( err) {
-                    console.log('error in sending to the a queue', err);
-                    return;
-                }
-            })
-            console.log('job enqueued' + job.id);
+            // Uncomment this **********************************
 
-            // if (req.xhr) {
-            //     // Similar for comments to fetch the user's id
-            //     comment =await comment.populate('user', 'name').execPopulate();
+            // let job =  queue.create('emails', comment).save(function(err) {
+            //     if ( err) {
+            //         console.log('error in sending to the a queue', err);
+            //         return;
+            //     }
+            // })
+            //console.log('job enqueued' + job.id);
 
-            //     return res.status(200).json({
-            //         data: {
-            //             comment : comment
-            //         },
-            //         message : 'Post created!'
-            //     })
-            // }
+            if (req.xhr) {
+                // Similar for comments to fetch the user's id
+                comment =await comment.populate('user', 'name');
+                console.log('CC : req.xhr')
+                return res.status(200).json({
+                    data: {
+                        comment : comment
+                    },
+                    message : 'Post created!'
+                })
+            }
+            console.log('CC : NOT req.xhr')
 
             req.flash('success', 'Comment published!');
             res.redirect('/');

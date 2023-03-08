@@ -1,6 +1,20 @@
 body {
-  margin: 0;
   /*text-align: center; */
+}
+
+body {
+  margin: 0;
+}
+body header {
+  height: 8vh;
+  width: 100%;
+  position: fixed;
+}
+body #layout-main {
+  height: 88vh;
+}
+body footer {
+  height: 4vh;
 }
 
 /*# sourceMappingURL=layout.css.map */

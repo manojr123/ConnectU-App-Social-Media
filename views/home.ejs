@@ -7,37 +7,90 @@
 </h1>  -->
 
 <div id="home-container">
-        <section id="feed-posts" >
-                <h4> Posts </h4>
-                <% if (locals.user) { %> 
-                        <form action ="/posts/create" id ="new-post-form" method="POST" >
-                                <textarea name = "content" cols="30" rows="3" placeholder"Type Here..." required ></textarea>
-                                <input type="submit" value="Post">
+        <section id="leftPanel">
+                <div > 
+                        <br><br><br>                        
+                                <a id = "friend-requests" href="/friends/requests"> <h4>Friend Requests</h4> </a>
+                </div>
+                
+        </section>
 
-                        </form>
-                <% } %>
-
-                <div id="posts-list-container">
-                        <ul>
-                                <% for (post of posts) { %>
-                                        <%- include('_post') %>
+        <section id="center-panel">
+                <% if ( display_friend_requests) { %>                              
+                        <section id="friend-requests-panel">
+                                <% console.log('locals.user', locals.user) %> <br><br><br>
+                                <h4> All Friend Requests </h4>
+                                <div class="friend-requests">
+                                  <% for ( u of friend_requests ) { %>
+                                        <div class="friend-request">
+                                           <img src ="avatar" height="125px" width = "100px">
+                                           <a href="/users/profile/<%= u.id %>"><%= u.name %> </a>
+                                           <button id="" class =""> Confirm</button>
+                                           <button id="" class =""> Delete</button>
+                                        </div>
+                                  <% } %>
+                                </div>
+        
+                        </section>
+                <% } else { %>
+                        <section id="feed-posts" >
+                                <h4> Posts </h4>
+                                <% if (locals.user) { %> 
+                                        <form action ="/posts/create" id ="new-post-form" method="POST" enctype="multipart/form-data">
+                                        <!-- <form action ="/posts/create" id ="new-post-form" method="POST" > -->
+                                                <textarea name = "content" id = "textarea" cols="30" rows="2" placeholder"Type Here..." required ></textarea> <br>
+                                                <input type="submit" value="Post"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                <!-- <input type="file" name="postimage" title="Upload File" style="color:transparent; width:100px;"/> -->
+                                                <input type="file" name="postimage" title="Upload File" />
+                                        </form>
                                 <% } %>
-                        </ul>
 
+                                <div id="posts-list-container">
+                                        <ul>
+                                                <% for (post of posts) { %>
+                                                        <%- include('_post') %>
+                                                <% } %>
+                                        </ul>
+
+                                </div>
+
+
+                        </section>
+                <% } %>
+        </section>
+
+        <% if (locals.user) { %> 
+
+        <section id ="users-and-friends"> 
+                <div>
+                        Hello<br><br>
+                </div>
+                <div id ="user-friends"> 
+                        <h4> Friends </h4>
+                        <% console.log('my_friends',my_friends) %>
+                        <% for ( u of my_friends) { %>
+                                <p>
+                                <% if ( u.from_user.id == user.id) { %>
+                                        <a href="/users/profile/<%= u.to_user.id %>"><%= u.to_user.name %> </a>
+                                <%} else if (u.to_user.id == user.id ) { %>
+                                        <a href="/users/profile/<%= u.from_user.id %>"><%= u.from_user.name %> </a>
+
+                                <% } %>
+                                </p>
+                        <% } %>
                 </div>
 
+                <div id ="all-users"> 
+                        <h4> All Users </h4>
+                        <% for ( u of all_users ) { %>
+                                <p>
+                                <a href="/users/profile/<%= u.id %>"><%= u.name %> </a>
+                                </p>
+                        <% } %>
 
+                </div>
         </section>
-
-        <section id ="user-friends"> 
-                <h4> Friends </h4>
-                <% for ( u of all_users ) { %>
-                        <p>
-                        <a href="/users/profile/<%= u.id %>"><%= u.name %> </a>
-                        </p>
-                <% } %>
-
-        </section>
+        <% } %>
         <%- include('_chat_box') -%>
 
 </div>
@@ -60,3 +113,5 @@
     new ChatEngine('user-chat-box', '<%= locals.user.email %>')
 </script>
 <% } %>
+<script src="https://kit.fontawesome.com/790f36f3db.js" crossorigin="anonymous"></script>
+<script src="/js/friends.js" ></script>
