@@ -10,7 +10,7 @@
         <section id="leftPanel">
                 <div > 
                         <br><br><br>                        
-                                <a id = "friend-requests" href="/friends/requests"> <h4>Friend Requests</h4> </a>
+                                <a id = "friend-requests-link" href="/friends/requests"> <h4>Friend Requests</h4> </a>
                 </div>
                 
         </section>
@@ -106,8 +106,9 @@
         let toggleLike = new ToggleLike(self);
     });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script src="/js/chat_engine.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+
 <% if (locals.user){ %>
 <script>
     new ChatEngine('user-chat-box', '<%= locals.user.email %>')

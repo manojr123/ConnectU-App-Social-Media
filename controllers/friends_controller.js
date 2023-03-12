@@ -48,6 +48,8 @@ module.exports.requests = async function(req, res) {
 
     console.log('Friends Controller : Requests');
     console.log('FC : req.parms.id', req.params.id);
+    console.log('FC : req.parms.action', req.params.action);
+
     console.log('FC : req.user', req.user);
     console.log('FC : req.body', req.body);
 
@@ -127,10 +129,22 @@ module.exports.accept = async function(req, res) {
         //from_user.friends.pull(req.user.id);
         to_user.save();
     
+        if (req.xhr) {
+            console.log('FC : req.xhr')
+            return res.status(200).json({
+                // data: {
+                //     friend_requests : friend_requests
+                // },
+                message : 'Accepted Friend Request!'
+            })
+        } else {
+            return res.redirect('back');
+        }
+
+
     } catch (err) {
         console.log( "Error from Friends Controller : Accept : ", err);
     }
-    return res.redirect('back');
     
 
 

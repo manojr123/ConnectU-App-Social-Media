@@ -17,12 +17,12 @@
   background-color: rgba(190, 144, 90, 0.42);
   background-color: white;
 }
-#home-container #center-panel #friend-requests-panel .friend-requests {
+#home-container #center-panel #friend-requests-panel #friend-requests {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
-#home-container #center-panel #friend-requests-panel .friend-requests .friend-request {
+#home-container #center-panel #friend-requests-panel #friend-requests .friend-request {
   display: flex;
   flex-direction: column;
   height: 200px;
@@ -33,7 +33,7 @@
   border-radius: 5px;
   border: 2px solid black;
 }
-#home-container #center-panel #friend-requests-panel .friend-requests .friend-request button {
+#home-container #center-panel #friend-requests-panel #friend-requests .friend-request button {
   background-color: rgb(48, 149, 189);
   color: white;
   border-radius: 5px;

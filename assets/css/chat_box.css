@@ -1,41 +1,81 @@
 #user-chat-box {
   position: fixed;
   bottom: 10px;
-  right: 10px;
-  border: 1px dashed grey;
+  left: 10px;
+  /* border: 1px dashed grey; */
+  border: 2px solid grey;
   height: 350px;
   width: 300px;
   background: white;
   padding: 5px;
   box-shadow: 1px 1px 1px 1px lightgrey;
+
 }
+#user-chat-box #title{
+  background-color: rgb(245, 209, 7);
+  background-color: rgb(216, 185, 10);
+
+  /* color: white; */
+  text-align: center;
+  border: 1px solid black;
+
+}
+
+
 #user-chat-box #chat-messages-list {
   list-style: none;
-  padding: 10px;
+  padding: 5px;
   height: 70%;
   background-color: white;
-  overflow: auto;
+  /* overflow: auto; */
+  overflow :auto;
+  /* display : flex;
+  flex-direction: column;
+  justify-content: flex-end; */
 }
+#user-chat-box #chat-messages-list li{
+  /* min-height: 10px; */
+
+}
+
 #user-chat-box #chat-messages-list .other-message {
   text-align: left;
-  padding: 5px;
+  padding: 3px;
+
 }
-#user-chat-box #chat-messages-list .other-message span {
+#user-chat-box #chat-messages-list .other-message div {
   display: inline-block;
-  padding: 15px;
+  /* padding: 15px; */
+  padding: 1px;
+
   background-color: #ffa0a0;
+  background-color: #e9a136;
+  background-color: #FFCD91;
+  
+  border-radius: 5px;
 }
+#user-chat-box #chat-messages-list .other-message div .other-email{
+color : #00a2ff;
+}
+
 #user-chat-box #chat-messages-list .self-message {
   text-align: right;
-  padding: 5px;
+  padding: 3px;
+
 }
-#user-chat-box #chat-messages-list .self-message span {
+#user-chat-box #chat-messages-list .self-message div {
   display: inline-block;
-  padding: 15px;
+  /* padding: 15px; */
+  padding: 1px;
   background-color: #a0dcff;
+  background-color: #bff14ae5;
+  background-color: #D2FDBB;
+  border-radius: 5px;
+
 }
+
 #user-chat-box #chat-message-input-container {
-  height: 24%;
+  height: 22%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -43,6 +83,7 @@
 #user-chat-box #chat-message-input-container #chat-message-input {
   height: 50%;
   width: 70%;
+  background-color: rgba(235, 235, 157, 0.87);
 }
 #user-chat-box #chat-message-input-container #send-message {
   height: 50%;
@@ -50,7 +91,7 @@
   font-size: 25px;
   color: white;
   border: none;
-  background: #58d258;
+  background: #5f1c20;
 }
 
 /*# sourceMappingURL=chat_box.css.map */

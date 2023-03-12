@@ -1,10 +1,10 @@
 <li id ="post-<%= post._id %>"> 
    <div class="postBody">
         <div class="user-delete"> 
-            <% if (locals.user && locals.user.id==post.user.id) { %>
             <strong class="user">
                  <%=  post.user.name %>
             </strong>
+            <% if (locals.user && locals.user.id==post.user.id) { %>
 
             <span>
                 <!-- CHANGE :: display the likes of this post, if the user is logged in, then show the link to toggle likes, else, just show the count -->
@@ -22,11 +22,7 @@
             <span>
                     <a class="delete-post-button" href="/posts/destroy/<%= post.id %>" ><i class="fa-solid fa-trash-can"></i></a>
             </span>
-            <!-- <% } %> <br>
-            <small>
-                Created : <%=  `post.createdAt.substring(4,14)` %>
-            </small>            
-            <br> -->
+            <% } %> <br>
         </div>
 
         <div>    

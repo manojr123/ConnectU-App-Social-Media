@@ -51,10 +51,9 @@ module.exports.home = async function(req, res) {
 
             console.log('HC : user',user);
             console.log('HC : friend_requests',friend_requests);
-            //my_friends = await Friend.find({$or :[{from_user: req.user.id},{to_user : req.user.id }] });
-
-            // .populate('from_user', 'name')
-            // .populate('to_user','name');
+            my_friends = await Friend.find({$or :[{from_user: req.user.id},{to_user : req.user.id }] })
+            .populate('from_user', 'name')
+            .populate('to_user','name');
                 
             //my_friends =[];
     
